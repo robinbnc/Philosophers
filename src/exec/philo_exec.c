@@ -6,7 +6,7 @@
 /*   By: rbicanic <rbicanic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 16:17:18 by rbicanic          #+#    #+#             */
-/*   Updated: 2022/04/03 19:54:10 by rbicanic         ###   ########.fr       */
+/*   Updated: 2022/04/03 22:58:28 by rbicanic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	check_death(t_philo *philo)
 		> philo->time_to_die)
 	{
 		// printf("\n%ld\n", (current_time.tv_usec - philo->last_eat_time.tv_usec) / 1000);
-		ft_print_messages(philo, "is dead\n", RED);
+		ft_print_messages(philo, DEATH_MSG, RED);
 		pthread_mutex_lock(philo->dead_mutex);
 		*philo->dead = 1;
 		pthread_mutex_unlock(philo->dead_mutex);
@@ -34,6 +34,8 @@ void	philo_can_eat(t_philo *philo)
 	pthread_mutex_unlock(philo->right_forks_mutex);
 	gettimeofday(&philo->last_eat_time, NULL);// check retour potentiellement
 	ft_print_messages(philo, EATING_MSG, GREEN);
+	if (philo->nbr_of_meals > -1)
+		philo->nbr_of_meals--;
 	usleep(philo->time_to_eat * 1000);
 	pthread_mutex_lock(philo->left_forks_mutex);
 	*philo->left_forks = 0;
@@ -72,7 +74,7 @@ void	*routine(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-	while (!philo_is_dead(philo))
+	while (!philo_is_dead(philo) && philo->nbr_of_meals != 0)
 	{
 		pthread_mutex_lock(philo->left_forks_mutex);
 		if (*philo->left_forks == 0 && !philo_is_dead(philo))
@@ -82,7 +84,10 @@ void	*routine(void *arg)
 			pthread_mutex_unlock(philo->left_forks_mutex);
 			pthread_mutex_lock(philo->right_forks_mutex);
 			if (*philo->right_forks == 0)
+			{
+				ft_print_messages(philo, FORK_MSG, MAGENTA);
 				philo_can_eat(philo);
+			}
 			else
 				only_one_fork_available(philo);
 		}

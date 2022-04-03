@@ -6,7 +6,7 @@
 /*   By: rbicanic <rbicanic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 17:59:05 by rbicanic          #+#    #+#             */
-/*   Updated: 2022/04/03 19:41:32 by rbicanic         ###   ########.fr       */
+/*   Updated: 2022/04/03 22:56:40 by rbicanic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@
 # define EATING_MSG "is eating\n"
 # define SLEEPING_MSG "is sleeping\n"
 # define THINKING_MSG "is thinking\n"
-
+# define DEATH_MSG "died\n"
+# define FORK_MSG "has taken a fork\n"
 
 typedef struct s_philo
 {
