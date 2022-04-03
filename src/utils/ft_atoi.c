@@ -6,7 +6,7 @@
 /*   By: rbicanic <rbicanic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 17:35:30 by rbicanic          #+#    #+#             */
-/*   Updated: 2022/03/28 20:35:28 by rbicanic         ###   ########.fr       */
+/*   Updated: 2022/04/03 15:04:24 by rbicanic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,4 +80,12 @@ int	is_over_max(const char *nptr, int sign)
 		return (1);
 	else
 		return (0);
+}
+
+uint8_t	ft_malloc(void **ptr, size_t size)
+{
+	*ptr = malloc(size);
+	if (!*ptr)
+		return (write(2, ALLOC_ERR_MSG, 24), 1);
+	return (0);
 }

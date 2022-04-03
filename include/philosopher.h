@@ -6,7 +6,7 @@
 /*   By: rbicanic <rbicanic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 17:59:05 by rbicanic          #+#    #+#             */
-/*   Updated: 2022/03/28 20:30:33 by rbicanic         ###   ########.fr       */
+/*   Updated: 2022/04/03 19:41:32 by rbicanic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,38 +35,58 @@
 # define EMPTY_ARG_MSG "Error: Arguments should not be empty\n"
 # define NUMERIC_ARG_MSG "Error: Arguments should be numeric\n"
 # define ARG_NBR_MSG "Error: Invalid number of arguments\n"
+# define CREATE_THREAD_MSG "Error: Failed to create thread\n"
+# define JOIN_THREAD_MSG "Error: Failed to join thread\n"
+
+# define EATING_MSG "is eating\n"
+# define SLEEPING_MSG "is sleeping\n"
+# define THINKING_MSG "is thinking\n"
+
 
 typedef struct s_philo
 {
-	int	philo_id;
-	int	philo_nbr;
-	int	time_to_die;
-	int	time_to_eat;
-	int	time_to_sleep;
-	int	nbr_of_meals;
-	int	last_eat_time;
+	int				philo_id;
+	int				philo_nbr;
+	int				time_to_die;
+	int				time_to_eat;
+	int				time_to_sleep;
+	int				nbr_of_meals;
+	struct timeval	last_eat_time;
 
 	/*
 	**shared variables;
 	*/
-	int	*forks;
-	int	*dead;
+
+	pthread_mutex_t	*print_mutex;
+	pthread_mutex_t	*left_forks_mutex;
+	int				*left_forks;
+	pthread_mutex_t	*right_forks_mutex;
+	int				*right_forks;
+	pthread_mutex_t	*dead_mutex;
+	int				*dead;
 }				t_philo;
 
 typedef struct s_table
 {
-	int		philo_nbr;
-	int		*dead;
-	int		*forks;
-	t_philo	*philos;
+	int				philo_nbr;
+	pthread_mutex_t	*print_mutex;
+	pthread_mutex_t	*dead_mutex;
+	int				*dead;
+	pthread_mutex_t	*forks_mutex;
+	int				*forks;
+	t_philo			*philos;
 }				t_table;
 
 /*
-** Utils
+** parsing
 */
 
 uint8_t	argument_are_valid(int ac, char *av[]);
 t_table	*initialize_table(t_table *table, char *av[]);
+void	initialize_mutex(t_table *table);
+void	destroy_mutex(t_table *table);
+uint8_t	initialize_threads(t_table *table);
+uint8_t	initialize_data(t_table *table, char *av[]);
 
 /*
 ** Utils
@@ -76,5 +96,14 @@ int		ft_atoi(const char *nptr);
 void	free_table(t_table *table);
 int		ft_strlen(char *str);
 int		is_over_max(const char *nptr, int sign);
+uint8_t	ft_malloc(void **ptr, size_t size);
+void	ft_print_messages(t_philo *philo, char *msg, char *color);
+
+/*
+** exec
+*/
+
+void	*routine(void *arg);
+uint8_t	philo_is_dead(t_philo *philo);
 
 #endif
