@@ -20,16 +20,16 @@ HEADER		= $(INCLUDE)philosopher.h
 
 CC			= clang
 
-CFLAGS		= -Wall -Wextra -Werror# -g -fsanitize=thread
+CFLAGS		= -Wall -Wextra -Werror -g -fsanitize=thread
 
 SRC_FILES 	=	philosopher.c				\
-				parsing/argument_error.c	\
-				parsing/initialize_data.c	\
-				parsing/initialize_thread.c	\
-				parsing/initialize_mutex.c	\
-				utils/ft_atoi.c				\
+				utils/utils_gen.c			\
 				utils/free_data.c			\
 				utils/utils_print.c			\
+				parsing/argument_error.c	\
+				parsing/initialize_data.c	\
+				parsing/initialize_mutex.c	\
+				exec/initialize_thread.c	\
 				exec/philo_exec.c
 
 SRC_DIR		= src/

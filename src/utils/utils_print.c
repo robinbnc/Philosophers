@@ -6,25 +6,37 @@
 /*   By: rbicanic <rbicanic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 19:37:38 by rbicanic          #+#    #+#             */
-/*   Updated: 2022/04/03 23:00:05 by rbicanic         ###   ########.fr       */
+/*   Updated: 2022/04/04 17:23:07 by rbicanic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosopher.h"
 
+long int	print_relative_time(void)
+{
+	static int				start = 0;
+	static struct timeval	start_time;
+	struct timeval			current_time;
+	long int				milli_time;
+
+	if (start == 0)
+	{
+		gettimeofday(&start_time, NULL);
+		start = 1;
+	}
+	gettimeofday(&current_time, NULL);
+	milli_time = ((current_time.tv_sec) * 1000 + (current_time.tv_usec) / 1000)
+		- ((start_time.tv_sec) * 1000 + (start_time.tv_usec) / 1000);
+	return (milli_time);
+}
+
 void	ft_print_messages(t_philo *philo, char *msg, char *color)
 {
-	struct timeval	current_time;
-
 	if (!philo_is_dead(philo))
 	{
-		gettimeofday(&current_time, NULL);// peut etre check retour
 		pthread_mutex_lock(philo->print_mutex);
-		printf("%s", color);
-		printf("%ld ", current_time.tv_usec / 1000);
-		printf("%d ", philo->philo_id + 1);
-		printf("%s", msg);
-		printf(RESET);
+		printf("%s%ld %d %s"RESET, color, print_relative_time(),
+			philo->philo_id + 1, msg);
 		pthread_mutex_unlock(philo->print_mutex);
 	}
 }

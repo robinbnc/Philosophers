@@ -6,7 +6,7 @@
 /*   By: rbicanic <rbicanic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 17:59:05 by rbicanic          #+#    #+#             */
-/*   Updated: 2022/04/03 22:56:40 by rbicanic         ###   ########.fr       */
+/*   Updated: 2022/04/04 17:23:10 by rbicanic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,6 @@ typedef struct s_philo
 	int				time_to_sleep;
 	int				nbr_of_meals;
 	struct timeval	last_eat_time;
-
-	/*
-	**shared variables;
-	*/
-
 	pthread_mutex_t	*print_mutex;
 	pthread_mutex_t	*left_forks_mutex;
 	int				*left_forks;
@@ -82,29 +77,30 @@ typedef struct s_table
 ** parsing
 */
 
-uint8_t	argument_are_valid(int ac, char *av[]);
-t_table	*initialize_table(t_table *table, char *av[]);
-void	initialize_mutex(t_table *table);
-void	destroy_mutex(t_table *table);
-uint8_t	initialize_threads(t_table *table);
-uint8_t	initialize_data(t_table *table, char *av[]);
+uint8_t		argument_are_valid(int ac, char *av[]);
+t_table		*initialize_table(t_table *table, char *av[]);
+void		initialize_mutex(t_table *table);
+void		destroy_mutex(t_table *table);
+uint8_t		initialize_data(t_table *table, char *av[]);
 
 /*
 ** Utils
 */
 
-int		ft_atoi(const char *nptr);
-void	free_table(t_table *table);
-int		ft_strlen(char *str);
-int		is_over_max(const char *nptr, int sign);
-uint8_t	ft_malloc(void **ptr, size_t size);
-void	ft_print_messages(t_philo *philo, char *msg, char *color);
+int			ft_atoi(const char *nptr);
+void		free_table(t_table *table);
+int			ft_strlen(char *str);
+int			is_over_max(const char *nptr, int sign);
+uint8_t		ft_malloc(void **ptr, size_t size);
+void		ft_print_messages(t_philo *philo, char *msg, char *color);
+long int	print_relative_time(void);
 
 /*
 ** exec
 */
 
-void	*routine(void *arg);
-uint8_t	philo_is_dead(t_philo *philo);
+uint8_t		initialize_threads(t_table *table);
+void		*routine(void *arg);
+uint8_t		philo_is_dead(t_philo *philo);
 
 #endif

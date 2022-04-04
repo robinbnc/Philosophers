@@ -6,7 +6,7 @@
 /*   By: rbicanic <rbicanic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 17:33:28 by rbicanic          #+#    #+#             */
-/*   Updated: 2022/04/03 18:17:41 by rbicanic         ###   ########.fr       */
+/*   Updated: 2022/04/04 17:23:08 by rbicanic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,5 @@ uint8_t	initialize_data(t_table *table, char *av[])
 	if (!initialize_table(table, av))
 		return (free_table(table), 1);
 	initialize_mutex(table);
-	if (initialize_threads(table) == 1)
-		return (free_table(table), 1);
 	return (0);
 }

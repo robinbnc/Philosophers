@@ -6,7 +6,7 @@
 /*   By: rbicanic <rbicanic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 16:17:18 by rbicanic          #+#    #+#             */
-/*   Updated: 2022/04/03 22:58:28 by rbicanic         ###   ########.fr       */
+/*   Updated: 2022/04/04 17:23:08 by rbicanic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,16 @@
 
 void	check_death(t_philo *philo)
 {
+	long int		milli_time;
 	struct timeval	current_time;
+	struct timeval	last_eat_time;
 
-	gettimeofday(&current_time, NULL);// peut etre check retour
-	if ((current_time.tv_usec - philo->last_eat_time.tv_usec) / 1000
-		> philo->time_to_die)
+	last_eat_time = philo->last_eat_time;
+	gettimeofday(&current_time, NULL);
+	milli_time = (current_time.tv_sec) * 1000 + (current_time.tv_usec) / 1000
+		- (((last_eat_time.tv_sec) * 1000 + (last_eat_time.tv_usec) / 1000));
+	if (milli_time > philo->time_to_die)
 	{
-		// printf("\n%ld\n", (current_time.tv_usec - philo->last_eat_time.tv_usec) / 1000);
 		ft_print_messages(philo, DEATH_MSG, RED);
 		pthread_mutex_lock(philo->dead_mutex);
 		*philo->dead = 1;
@@ -32,10 +35,10 @@ void	philo_can_eat(t_philo *philo)
 {
 	*philo->right_forks = 1;
 	pthread_mutex_unlock(philo->right_forks_mutex);
-	gettimeofday(&philo->last_eat_time, NULL);// check retour potentiellement
 	ft_print_messages(philo, EATING_MSG, GREEN);
 	if (philo->nbr_of_meals > -1)
 		philo->nbr_of_meals--;
+	gettimeofday(&philo->last_eat_time, NULL);
 	usleep(philo->time_to_eat * 1000);
 	pthread_mutex_lock(philo->left_forks_mutex);
 	*philo->left_forks = 0;
@@ -55,7 +58,6 @@ void	only_one_fork_available(t_philo *philo)
 	*philo->left_forks = 0;
 	pthread_mutex_unlock(philo->left_forks_mutex);
 }
-
 
 uint8_t	philo_is_dead(t_philo *philo)
 {
