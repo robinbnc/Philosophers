@@ -6,7 +6,7 @@
 /*   By: rbicanic <rbicanic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 19:37:38 by rbicanic          #+#    #+#             */
-/*   Updated: 2022/04/04 17:23:07 by rbicanic         ###   ########.fr       */
+/*   Updated: 2022/04/05 14:44:24 by rbicanic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,12 @@ long int	print_relative_time(void)
 	return (milli_time);
 }
 
-void	ft_print_messages(t_philo *philo, char *msg, char *color)
+void	ft_print_messages(t_philo *philo, char *msg, char *color, int death)
 {
-	if (!philo_is_dead(philo))
-	{
-		pthread_mutex_lock(philo->print_mutex);
-		printf("%s%ld %d %s"RESET, color, print_relative_time(),
-			philo->philo_id + 1, msg);
-		pthread_mutex_unlock(philo->print_mutex);
-	}
+	if (!death && philo_is_dead(philo))
+		return ;
+	pthread_mutex_lock(philo->print_mutex);
+	printf("%s%ld %d %s"RESET, color, print_relative_time(),
+		philo->philo_id + 1, msg);
+	pthread_mutex_unlock(philo->print_mutex);
 }

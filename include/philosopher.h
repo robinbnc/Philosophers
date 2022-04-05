@@ -6,7 +6,7 @@
 /*   By: rbicanic <rbicanic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 17:59:05 by rbicanic          #+#    #+#             */
-/*   Updated: 2022/04/04 17:23:10 by rbicanic         ###   ########.fr       */
+/*   Updated: 2022/04/05 14:58:14 by rbicanic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,8 @@ void		free_table(t_table *table);
 int			ft_strlen(char *str);
 int			is_over_max(const char *nptr, int sign);
 uint8_t		ft_malloc(void **ptr, size_t size);
-void		ft_print_messages(t_philo *philo, char *msg, char *color);
+void		ft_print_messages(t_philo *philo, char *msg,
+				char *color, int death);
 long int	print_relative_time(void);
 
 /*

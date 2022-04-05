@@ -6,7 +6,7 @@
 /*   By: rbicanic <rbicanic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 16:17:18 by rbicanic          #+#    #+#             */
-/*   Updated: 2022/04/04 17:23:08 by rbicanic         ###   ########.fr       */
+/*   Updated: 2022/04/05 15:08:05 by rbicanic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,17 @@ void	check_death(t_philo *philo)
 	gettimeofday(&current_time, NULL);
 	milli_time = (current_time.tv_sec) * 1000 + (current_time.tv_usec) / 1000
 		- (((last_eat_time.tv_sec) * 1000 + (last_eat_time.tv_usec) / 1000));
-	if (milli_time > philo->time_to_die)
+	if (milli_time > philo->time_to_die && !philo_is_dead(philo))
 	{
-		ft_print_messages(philo, DEATH_MSG, RED);
 		pthread_mutex_lock(philo->dead_mutex);
+		if (*philo->dead == 1)
+		{
+			pthread_mutex_unlock(philo->dead_mutex);
+			return ;
+		}
 		*philo->dead = 1;
 		pthread_mutex_unlock(philo->dead_mutex);
+		ft_print_messages(philo, DEATH_MSG, RED, 1);
 	}
 }
 
@@ -35,7 +40,8 @@ void	philo_can_eat(t_philo *philo)
 {
 	*philo->right_forks = 1;
 	pthread_mutex_unlock(philo->right_forks_mutex);
-	ft_print_messages(philo, EATING_MSG, GREEN);
+	if (!philo_is_dead(philo))
+		ft_print_messages(philo, EATING_MSG, GREEN, 0);
 	if (philo->nbr_of_meals > -1)
 		philo->nbr_of_meals--;
 	gettimeofday(&philo->last_eat_time, NULL);
@@ -46,9 +52,11 @@ void	philo_can_eat(t_philo *philo)
 	pthread_mutex_lock(philo->right_forks_mutex);
 	*philo->right_forks = 0;
 	pthread_mutex_unlock(philo->right_forks_mutex);
-	ft_print_messages(philo, SLEEPING_MSG, BLUE);
+	if (!philo_is_dead(philo))
+		ft_print_messages(philo, SLEEPING_MSG, BLUE, 0);
 	usleep(philo->time_to_sleep * 1000);
-	ft_print_messages(philo, THINKING_MSG, YELLOW);
+	if (!philo_is_dead(philo))
+		ft_print_messages(philo, THINKING_MSG, YELLOW, 0);
 }
 
 void	only_one_fork_available(t_philo *philo)
@@ -85,9 +93,9 @@ void	*routine(void *arg)
 			*philo->left_forks = 1;
 			pthread_mutex_unlock(philo->left_forks_mutex);
 			pthread_mutex_lock(philo->right_forks_mutex);
-			if (*philo->right_forks == 0)
+			if (*philo->right_forks == 0 && !philo_is_dead(philo))
 			{
-				ft_print_messages(philo, FORK_MSG, MAGENTA);
+				ft_print_messages(philo, FORK_MSG, MAGENTA, 0);
 				philo_can_eat(philo);
 			}
 			else
