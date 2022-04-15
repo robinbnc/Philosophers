@@ -6,7 +6,7 @@
 /*   By: rbicanic <rbicanic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 16:17:18 by rbicanic          #+#    #+#             */
-/*   Updated: 2022/04/15 19:29:33 by rbicanic         ###   ########.fr       */
+/*   Updated: 2022/04/15 20:48:36 by rbicanic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	philo_can_eat(t_philo *philo)
 	usleep(die_sleeping(philo) * 1000);
 	if (ft_print_messages(philo, THINKING_MSG, YELLOW, 0))
 		return ;
+	usleep(1000);
 }
 
 void	only_one_fork_available(t_philo *philo)
