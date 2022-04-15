@@ -6,7 +6,7 @@
 /*   By: rbicanic <rbicanic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 11:57:14 by rbicanic          #+#    #+#             */
-/*   Updated: 2022/04/15 12:49:41 by rbicanic         ###   ########.fr       */
+/*   Updated: 2022/04/15 17:17:56 by rbicanic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	thread_error(t_table *table, pthread_t *philo_th)
 	destroy_mutex(table);
 }
 
-int	create_philo_threads(t_table *table, pthread_t *philo_th)//, int paire)
+int	create_philo_threads(t_table *table, pthread_t *philo_th)
 {
 	int	i;
 
@@ -75,10 +75,8 @@ uint8_t	initialize_threads(t_table *table)
 	if (!philo_th)
 		return (write(2, ALLOC_ERR_MSG, 24), 1);
 	i = 0;
-	if (create_philo_threads(table, philo_th))//, TRUE))
+	if (create_philo_threads(table, philo_th))
 		return (1);
-	// if (create_philo_threads(table, philo_th, FALSE))
-	// 	return (1);
 	if (philo_join_threads(table, philo_th) == 1)
 		return (write(2, JOIN_THREAD_MSG, 29),
 			thread_error(table, philo_th), 1);

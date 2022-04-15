@@ -1,7 +1,0 @@
-faire mager les paires d'abord puis les impaires OK => manent tous
-
-faire commencer le timer quand le premier mange AKA quand on fini d'attendre
-
-double fork
-
-Lock 2 mutex en meme temps creer un seul mutex qui sera activé qund les 2 fourchettes sont vides

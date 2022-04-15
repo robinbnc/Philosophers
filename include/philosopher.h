@@ -6,7 +6,7 @@
 /*   By: rbicanic <rbicanic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 17:59:05 by rbicanic          #+#    #+#             */
-/*   Updated: 2022/04/15 12:18:31 by rbicanic         ###   ########.fr       */
+/*   Updated: 2022/04/15 17:18:48 by rbicanic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@
 # define FORK_MSG "has taken a fork\n"
 # define TRUE 0
 # define FALSE 1
-
 
 typedef struct s_philo
 {
@@ -95,9 +94,10 @@ void		free_table(t_table *table);
 int			ft_strlen(char *str);
 int			is_over_max(const char *nptr, int sign);
 uint8_t		ft_malloc(void **ptr, size_t size);
-void		ft_print_messages(t_philo *philo, char *msg,
+uint8_t		ft_print_messages(t_philo *philo, char *msg,
 				char *color, int death);
 long int	print_relative_time(void);
+void		check_death(t_philo *philo);
 
 /*
 ** exec
