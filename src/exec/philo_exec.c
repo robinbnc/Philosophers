@@ -6,7 +6,7 @@
 /*   By: rbicanic <rbicanic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 16:17:18 by rbicanic          #+#    #+#             */
-/*   Updated: 2022/04/05 15:08:46 by rbicanic         ###   ########.fr       */
+/*   Updated: 2022/04/15 12:55:16 by rbicanic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,10 @@ void	*routine(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
+	pthread_mutex_lock(philo->dead_mutex);
+	pthread_mutex_unlock(philo->dead_mutex);
+	if (philo->philo_id % 2 == 0)
+		usleep(400);
 	while (!philo_is_dead(philo) && philo->nbr_of_meals != 0)
 	{
 		pthread_mutex_lock(philo->left_forks_mutex);
@@ -95,6 +99,7 @@ void	*routine(void *arg)
 			pthread_mutex_lock(philo->right_forks_mutex);
 			if (*philo->right_forks == 0 && !philo_is_dead(philo))
 			{
+				ft_print_messages(philo, FORK_MSG, MAGENTA, 0);
 				ft_print_messages(philo, FORK_MSG, MAGENTA, 0);
 				philo_can_eat(philo);
 			}

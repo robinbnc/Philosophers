@@ -20,7 +20,7 @@ HEADER		= $(INCLUDE)philosopher.h
 
 CC			= clang
 
-CFLAGS		= -Wall -Wextra -Werror -g -fsanitize=thread
+CFLAGS		= -Wall -Wextra -Werror# -g -fsanitize=thread
 
 SRC_FILES 	=	philosopher.c				\
 				utils/utils_gen.c			\
