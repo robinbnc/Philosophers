@@ -6,7 +6,7 @@
 /*   By: rbicanic <rbicanic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 16:17:18 by rbicanic          #+#    #+#             */
-/*   Updated: 2022/04/15 17:17:14 by rbicanic         ###   ########.fr       */
+/*   Updated: 2022/04/15 19:29:33 by rbicanic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	philo_can_eat(t_philo *philo)
 	pthread_mutex_unlock(philo->right_forks_mutex);
 	if (ft_print_messages(philo, SLEEPING_MSG, BLUE, 0))
 		return ;
-	usleep(philo->time_to_sleep * 1000);
+	usleep(die_sleeping(philo) * 1000);
 	if (ft_print_messages(philo, THINKING_MSG, YELLOW, 0))
 		return ;
 }

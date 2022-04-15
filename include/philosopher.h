@@ -6,7 +6,7 @@
 /*   By: rbicanic <rbicanic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 17:59:05 by rbicanic          #+#    #+#             */
-/*   Updated: 2022/04/15 17:18:48 by rbicanic         ###   ########.fr       */
+/*   Updated: 2022/04/15 18:58:28 by rbicanic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ uint8_t		ft_print_messages(t_philo *philo, char *msg,
 				char *color, int death);
 long int	print_relative_time(void);
 void		check_death(t_philo *philo);
+int			die_sleeping(t_philo *philo);
 
 /*
 ** exec
