@@ -6,7 +6,7 @@
 /*   By: rbicanic <rbicanic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 19:37:38 by rbicanic          #+#    #+#             */
-/*   Updated: 2022/04/16 15:01:49 by rbicanic         ###   ########.fr       */
+/*   Updated: 2022/04/16 17:57:06 by rbicanic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	die_sleeping(t_philo *philo)
 	{
 		milli_time = (current_t.tv_sec) * 1000 + (current_t.tv_usec) / 1000
 			- (((last_eat_t.tv_sec) * 1000 + (last_eat_t.tv_usec) / 1000));
-		return (philo->time_to_die - milli_time - 1);
+		return (philo->time_to_die - milli_time);
 	}
 	return (philo->time_to_sleep);
 }
