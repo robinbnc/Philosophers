@@ -6,7 +6,7 @@
 /*   By: rbicanic <rbicanic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 16:17:18 by rbicanic          #+#    #+#             */
-/*   Updated: 2022/05/09 20:23:30 by rbicanic         ###   ########.fr       */
+/*   Updated: 2022/05/09 20:43:27 by rbicanic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ void	philo_can_eat(t_philo *philo)
 		return ;
 	if (philo->time_to_eat > philo->time_to_sleep
 		&& philo->time_to_sleep == die_sleeping(philo))
-		usleep(1010 * (philo->time_to_eat - philo->time_to_sleep));
+		usleep(1100 * (philo->time_to_eat - philo->time_to_sleep));
 	else
-		usleep(1000);
+	usleep(1000);
 }
 
 void	only_one_fork_available(t_philo *philo)
