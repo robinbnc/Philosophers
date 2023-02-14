@@ -6,7 +6,7 @@
 | Technologies | <a href="#"><img alt="C" src="https://custom-icon-badges.demolab.com/badge/C-03599C.svg?logo=c-in-hexagon&logoColor=white&style=for-the-badge"></a> |
 | External libraries | memset(), printf(), malloc(), free(), write(), usleep(), gettimeofday(), pthread_create(), pthread_detach(), pthread_join(), pthread_mutex_init(), pthread_mutex_destroy(), pthread_mutex_lock(), pthread_mutex_unlock() |
 | Additional libraries for bonuses | fork(), kill(), exit(), waitpid(), sem_open(), sem_close(), sem_post(), sem_wait(), sem_unlink() |
-| Final grade | 125/125 |
+| Final grade | 100/100 |
 
 ## Usage
 ```
@@ -149,63 +149,3 @@ Here is a simple implementation of a mutex varible :
 	}
 	--> (1) Another better solution to avoid allocating memory here would be sending prime + i pointer to routine !
 	--> (2) Also here arg is deallocated in the routine function. The best practice is to modify its value in order to use it as return value of the routine. That way you can free memory in the function it has been allocated. This practice prevent from many memory errors to make it easier handling them.
-
-## SEMAPHORES
-
-	#include <fcntl.h> // For O_* constants
-	#include <sys/stat.h> // For mode constants
-	#include <semaphore.h> 
-
-	sem_t *sem_open(const char *name, int oflag, mode_t mode, unsigned int value)
-	/*
-	** oflag O_CREAT to create a new semaphore.
-	** In case of creation, both mode and value args must be specified.
-	*/
-
-	int sem_close(sem_t *sem)
-	/*
-	** sem_close() closes the named semaphore referred to by sem, allowing any resources
-	** that the system has allocated to the calling process for this semaphore to be freed.
-	** return ) on success, -1 on error with errno set.
-	*/
-
-	int sem_post(sem_t *sem)
-	/*
-	** Link with -pthread
-	** sem_post()  increments  (unlocks)  the semaphore pointed to by sem.
-	** If the semaphore's value consequently becomes greater than zero, then 
-	** another process or thread blocked in a sem_wait(3) call will be woken 
-	** up and proceed to lock the semaphore.
-	** returns 0 on success, -1 on error. In case of error, the value of the
-	** semaphore is left unchaned and a errno setindicate the error.
-	*/
-
-	int sem_wait(sem_t *sem)
-	/*
-	** Decrement (locks) the semaphore pointed to by sem.
-	** Return 0 on success, -1 and errno set on error.
-	*/
-
-	int sem_unlink(const char *name)
-	/*
-	** Link with -pthread
-	** sem_unlink()  removes  the  named  semaphore referred to by name.
-	** The semaphore name is removed immediately. The semaphore is destroyed 
-	** once all other processes that have the semaphore open close it.
-	** Returns 0 on success, -1 with errno set on error.
-	*/
-
-## FORK
-
-	#include <sys/wait.h>
-	pid_t waitpid(pid_t pid, int *stat_loc, int options)
-	/*
-	** wait for a child process to stop or terminate.
-	*/
-
-	#include <unistd.h>
-	pid_t fork(void)
-	/*
-	** Create a new process
-	** return -1 on error
-	*/
